@@ -1,4 +1,4 @@
-package lambethd.kraken.application.service.service;
+package lambethd.kraken.application.service;
 
 import org.springframework.stereotype.Service;
 
