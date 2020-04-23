@@ -29,7 +29,7 @@ public class ItemServiceTest {
     public void getItemById_GiveValidId_ReturnsTheItem(){
         Item item = itemService.getItemByName("A mis-fortune from The Mighty Zoltan (1/17)");
         Assert.assertNotNull(item);
-        Assert.assertEquals("A mis-fortune from The Mighty Zoltan (1/17)", item.name);
+        Assert.assertEquals("A mis-fortune from The Mighty Zoltan (1/17t)", item.name);
     }
 
     @Test

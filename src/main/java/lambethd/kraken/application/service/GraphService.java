@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runescape.Graph;
 
+import java.util.List;
+
 @Service
 public class GraphService implements IGraphService {
     @Autowired
@@ -13,6 +15,6 @@ public class GraphService implements IGraphService {
 
     @Override
     public Graph getGraphById(Integer id) {
-        return graphRepository.getGraphByItemId(id);
+        return graphRepository.getGraphById(id);
     }
 }

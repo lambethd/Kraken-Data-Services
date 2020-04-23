@@ -3,6 +3,7 @@ package lambethd.kraken.application.service;
 import lambethd.kraken.application.interfaces.IItemService;
 import lambethd.kraken.data.mongo.repository.IItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import runescape.Item;
 
@@ -16,7 +17,7 @@ public class ItemService implements IItemService {
 
     @Override
     public List<Item> getItems() {
-        return itemRepository.findAll();
+        return itemRepository.findAll(new Sort(Sort.Direction.ASC, "name"));
     }
 
     @Override
@@ -26,12 +27,12 @@ public class ItemService implements IItemService {
 
     @Override
     public Item getItemByName(String name) {
-        return itemRepository.getItemByName(name);
+        return itemRepository.getItemByName(name, new Sort(Sort.Direction.ASC, "name"));
     }
 
     @Override
     public List<Item> getItemsByNameSearch(String searchString) {
-        return itemRepository.findByNameRegex(searchString);
+        return itemRepository.findByNameRegex(searchString, new Sort(Sort.Direction.ASC, "name"));
     }
 
     @Override
