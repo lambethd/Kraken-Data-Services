@@ -2,6 +2,7 @@ package lambethd.kraken.application.controller;
 
 import lambethd.kraken.application.interfaces.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import runescape.Item;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
 @RequestMapping("/item")
+@Validated
 public class ItemController {
 
     @Autowired
