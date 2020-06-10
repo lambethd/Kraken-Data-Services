@@ -1,32 +1,37 @@
 package lambethd.kraken.application;
 
+import lambethd.kraken.application.interfaces.IAuthService;
+import lambethd.kraken.application.security.JwtConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user").password("{noop}password").roles("USER")
-                .and()
-                .withUser("admin").password("{noop}password").roles("USER", "ADMIN");
-    }
+
+    @Autowired
+    private IAuthService authService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //HTTP Basic authentication
-                .httpBasic()
+                .httpBasic().disable()
+                .csrf().disable()
+                //.formLogin().disable()
+                .cors()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/item/**").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/item").hasRole("ADMIN")
+                .antMatchers("/users/authenticate").permitAll()
+                .antMatchers(HttpMethod.GET, "/items").hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
-                .csrf().disable()
-                .formLogin().disable();
+                .apply(new JwtConfigurer(authService));
     }
 }

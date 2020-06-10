@@ -70,6 +70,7 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
     @Bean
     public MongoCustomConversions customConversions() {
         List<Converter<?, ?>> converterList = new ArrayList<>();
+        converterList.add(new MongoStringFromStringConverter());
         converterList.add(new MongoLocalDateTimeFromStringConverter());
         return new MongoCustomConversions(converterList);
     }
@@ -78,6 +79,12 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
         @Override
         public LocalDateTime convert(String source) {
             return source == null ? null : LocalDateTime.parse(source);
+        }
+    }
+    private static final class MongoStringFromStringConverter implements Converter<String, String> {
+        @Override
+        public String convert(String source) {
+            return source;
         }
     }
 }

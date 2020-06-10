@@ -3,6 +3,7 @@ package lambethd.kraken.application.service;
 import lambethd.kraken.application.Configuration;
 import lambethd.kraken.application.interfaces.IItemService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Configuration.class})
+@Ignore
 public class ItemServiceTest {
     @Autowired
     private IItemService itemService;
