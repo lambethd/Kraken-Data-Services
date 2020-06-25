@@ -18,7 +18,6 @@ import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/users")
 public class UserController extends BaseController {
     @Autowired

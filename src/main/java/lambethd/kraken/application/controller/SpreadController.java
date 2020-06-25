@@ -10,7 +10,6 @@ import portfolio.Spread;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/spread")
 public class SpreadController extends BaseController {
 
