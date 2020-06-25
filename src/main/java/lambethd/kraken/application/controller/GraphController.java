@@ -11,7 +11,6 @@ import runescape.Graph;
 import runescape.Item;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
 @RequestMapping("/graph")
 public class GraphController extends BaseController {
 

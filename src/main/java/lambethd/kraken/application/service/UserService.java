@@ -1,5 +1,6 @@
 package lambethd.kraken.application.service;
 
+import domain.AuthScope;
 import domain.User;
 import lambethd.kraken.application.exception.UserRegistrationException;
 import lambethd.kraken.application.interfaces.IUserService;
@@ -19,6 +20,7 @@ public class UserService implements IUserService {
 
     @Override
     public User registerUser(User user) throws UserRegistrationException {
+        user.setScope(AuthScope.USER);
         userValidationService.validateUser(user);
 
         return userRepository.save(user);

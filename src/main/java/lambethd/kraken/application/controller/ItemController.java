@@ -10,7 +10,6 @@ import runescape.Item;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/item")
 public class ItemController extends BaseController {
 

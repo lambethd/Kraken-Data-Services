@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/authentication/details")
 public class AuthController extends BaseController {
 

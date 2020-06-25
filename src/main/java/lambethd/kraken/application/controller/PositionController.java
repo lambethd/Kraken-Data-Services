@@ -13,7 +13,6 @@ import portfolio.Position;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/position")
 public class PositionController extends BaseController {
 

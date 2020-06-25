@@ -7,6 +7,7 @@ import lambethd.kraken.application.exception.UnauthorizedException;
 import lambethd.kraken.application.interfaces.IAuthService;
 import lambethd.kraken.application.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,10 @@ public class AuthService implements IAuthService {
 
     @Autowired
     private IUserService userService;
+    @Value("${public_key_file_location}")
+    private String publicKeyFile;
+    @Value("${private_key_file_location}")
+    private String privateKeyFile;
 
     private final long expirationAddon = 36000; //10h in seconds
 
@@ -48,7 +53,7 @@ public class AuthService implements IAuthService {
     @Override
     public UserDto authenticateUser(User user) throws UnauthorizedException, NoSuchAlgorithmException, URISyntaxException, NoSuchProviderException, InvalidKeySpecException, IOException {
         User sourceUser = userService.getUserByUsername(user.getUsername());
-        if (sourceUser.getUsername().equalsIgnoreCase(user.getUsername()) && sourceUser.getPassword().equals(user.getPassword())) {
+        if (sourceUser != null && sourceUser.getUsername().equalsIgnoreCase(user.getUsername()) && sourceUser.getPassword().equals(user.getPassword())) {
             UserDto userDto = new UserDto();
             userDto.setUsername(sourceUser.getUsername());
             userDto.setFirstName(sourceUser.getFirstName());
@@ -63,7 +68,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public RSAPublicKey getPublicKey() throws InvalidKeySpecException, NoSuchAlgorithmException, IOException {
-        String publicKeyContent = new String(Files.readAllBytes(Paths.get("C:\\dev\\public.pem")));
+        String publicKeyContent = new String(Files.readAllBytes(Paths.get(publicKeyFile)));
 
         publicKeyContent = publicKeyContent.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");
         ;
@@ -76,7 +81,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public PrivateKey getPrivateKey() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
-        String privateKeyContent = new String(Files.readAllBytes(Paths.get("C:\\dev\\private_key_pkcs8.pem")));
+        String privateKeyContent = new String(Files.readAllBytes(Paths.get(privateKeyFile)));
 
         privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
 
@@ -138,9 +143,13 @@ public class AuthService implements IAuthService {
     }
 
     private Collection<GrantedAuthority> getAuthorities(User user) {
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getScope().toString());
-        Collection<GrantedAuthority> collection = new HashSet<>();
-        collection.add(authority);
-        return collection;
+        if (user != null && user.getScope() != null) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(user.getScope().toString());
+            Collection<GrantedAuthority> collection = new HashSet<>();
+            collection.add(authority);
+            return collection;
+        } else {
+            return new HashSet<>();
+        }
     }
 }
