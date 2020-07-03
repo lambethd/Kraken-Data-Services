@@ -1,12 +1,12 @@
 package lambethd.kraken.application.mapper;
 
 import lambethd.kraken.application.dto.TradeDto;
-import lambethd.kraken.application.exception.UnableToMapException;
 import lambethd.kraken.application.interfaces.ITradeDtoMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.Trade;
+import portfolio.TradeEntry;
 
 @Service
 public class TradeDtoMapper implements ITradeDtoMapper {

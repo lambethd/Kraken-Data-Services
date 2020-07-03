@@ -21,11 +21,15 @@ public class PositionService implements IPositionService {
         if (position == null) {
             position = createPosition(current);
         }
-        int change = current.getCurrentQuantity() - (previous == null ? 0 : previous.getCurrentQuantity());
+        int quantityChange = current.getCurrentQuantity() - (previous == null ? 0 : previous.getCurrentQuantity());
+        float valueChange = current.getCurrentTotalPrice() - (previous == null ? 0 : previous.getCurrentTotalPrice());
+
         if (current.getBuySell() == BuySell.Sell) {
-            change *= -1;
+            quantityChange *= -1;
+            valueChange *= -1;
         }
-        position.addToQuantity(change);
+        position.addToQuantity(quantityChange);
+        position.addToTotalValue(valueChange);
 
         if (position.getQuantity() == 0 && position.getId() != null) {
             positionRepository.delete(position);
@@ -40,6 +44,7 @@ public class PositionService implements IPositionService {
         position.setItemId(current.getItemId());
         position.setUsername(current.getUsername());
         position.setQuantity(0);
+        position.setPurchasePrice(0f);
         return position;
     }
 
