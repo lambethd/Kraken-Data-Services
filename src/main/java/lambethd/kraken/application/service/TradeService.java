@@ -74,7 +74,7 @@ public class TradeService implements ITradeService {
         if (tradeId == null) {
             return null;
         }
-        Trade trade = currentTradeRepository.findTradeById(new ObjectId(tradeId));
+        Trade trade = currentTradeRepository.findTradeById(tradeId);
         if (trade == null) {
             throw new EntityNotFoundException("Trade " + tradeId + " does not exist");
         }
