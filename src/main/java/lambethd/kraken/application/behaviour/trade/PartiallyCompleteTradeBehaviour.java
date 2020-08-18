@@ -5,6 +5,7 @@ import lambethd.kraken.data.mongo.repository.ICurrentTradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.Trade;
+import portfolio.TradeEntry;
 import portfolio.TradeStatus;
 
 @Service
@@ -20,6 +21,8 @@ public class PartiallyCompleteTradeBehaviour implements IBehaviour<Trade> {
 
     @Override
     public Trade completeAction(Trade oldTrade, Trade newTrade) {
+        newTrade.setPreviousEntries(oldTrade.getPreviousEntries());
+        newTrade.getPreviousEntries().add(new TradeEntry(oldTrade.getLastUpdated(), oldTrade.getCurrentQuantity(), oldTrade.getCurrentTotalPrice()));
         return currentTradeRepository.save(newTrade);
     }
 
