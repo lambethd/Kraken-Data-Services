@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import portfolio.RangeType;
 import runescape.Graph;
 import runescape.Item;
 
@@ -19,6 +20,11 @@ public class GraphController extends BaseController {
 
     @RequestMapping("/{itemId}")
     public ResponseEntity<Graph> getGraph(@PathVariable Integer itemId) {
-        return buildResponseEntity(graphService.getGraphById(itemId));
+        return buildResponseEntity(graphService.getGraph(itemId));
+    }
+
+    @RequestMapping("/{itemId}/{rangeType}")
+    public ResponseEntity<Graph> getGraph(@PathVariable Integer itemId, @PathVariable RangeType rangeType) {
+        return buildResponseEntity(graphService.getGraph(itemId, rangeType));
     }
 }
