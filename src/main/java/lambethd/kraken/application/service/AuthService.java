@@ -41,8 +41,8 @@ public class AuthService implements IAuthService {
     private String publicKeyFile;
     @Value("${private_key_file_location}")
     private String privateKeyFile;
-
-    private final long expirationAddon = 36000; //10h in seconds
+    @Value("${jwt_expiration_addon}")
+    private long expirationAddon;
 
     @Override
     public String getCurrentUser() {
