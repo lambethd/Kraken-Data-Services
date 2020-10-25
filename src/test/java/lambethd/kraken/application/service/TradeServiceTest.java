@@ -4,8 +4,6 @@ import lambethd.kraken.application.Configuration;
 import lambethd.kraken.application.MongoConfiguration;
 import lambethd.kraken.application.WebSecurityConfig;
 import lambethd.kraken.application.interfaces.IValidator;
-import lambethd.kraken.data.mongo.repository.ICurrentTradeRepository;
-import lambethd.kraken.data.mongo.repository.ITradeRepository;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
