@@ -1,20 +1,26 @@
 package lambethd.kraken.application.service;
 
 import lambethd.kraken.application.Configuration;
+import lambethd.kraken.application.MongoConfiguration;
+import lambethd.kraken.application.WebSecurityConfig;
 import lambethd.kraken.application.interfaces.IItemService;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runescape.Item;
 
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Configuration.class})
+@ContextConfiguration(classes = {Configuration.class, MongoConfiguration.class, WebSecurityConfig.class})
+@TestPropertySource(locations = "classpath:application.properties")
+@SpringBootApplication(scanBasePackages = "lambethd.kraken")
 @Ignore
 public class ItemServiceTest {
     @Autowired
@@ -28,21 +34,21 @@ public class ItemServiceTest {
     }
 
     @Test
-    public void getItemById_GiveValidId_ReturnsTheItem(){
+    public void getItemById_GiveValidId_ReturnsTheItem() {
         Item item = itemService.getItemByName("A mis-fortune from The Mighty Zoltan (1/17)");
         Assert.assertNotNull(item);
         Assert.assertEquals("A mis-fortune from The Mighty Zoltan (1/17t)", item.name);
     }
 
     @Test
-    public void getItemById_GiveValidIds_ReturnsTheItem(){
+    public void getItemById_GiveValidIds_ReturnsTheItem() {
         Item item = itemService.getItem(39935);
         Assert.assertNotNull(item);
         Assert.assertEquals("A mis-fortune from The Mighty Zoltan (1/17)", item.name);
     }
 
     @Test
-    public void findByNameRegex_GivenRegex_Returns(){
+    public void findByNameRegex_GivenRegex_Returns() {
         List<Item> items = itemService.getItemsByNameSearch(".*Akrisae's hood.*");
         Assert.assertNotNull(items);
         Assert.assertNotEquals(0, items.size());

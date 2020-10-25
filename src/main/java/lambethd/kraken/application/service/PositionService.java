@@ -1,7 +1,6 @@
 package lambethd.kraken.application.service;
 
 import lambethd.kraken.application.interfaces.IPositionService;
-import lambethd.kraken.data.mongo.repository.IPositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.BuySell;

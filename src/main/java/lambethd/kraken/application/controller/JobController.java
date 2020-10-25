@@ -1,6 +1,6 @@
 package lambethd.kraken.application.controller;
 
-import domain.orchestration.IJob;
+import domain.orchestration.Job;
 import domain.orchestration.JobDetail;
 import lambethd.kraken.application.interfaces.IAuthService;
 import lambethd.kraken.application.interfaces.IJobService;
@@ -22,7 +22,7 @@ public class JobController extends BaseController {
     private IAuthService authService;
 
     @RequestMapping("/{runeDay}")
-    public ResponseEntity<List<IJob>> getJobs(@PathVariable int runeDay) {
+    public ResponseEntity<List<Job>> getJobs(@PathVariable int runeDay) {
         return buildResponseEntity(jobService.getJobs(runeDay, authService.getCurrentUser()));
     }
 

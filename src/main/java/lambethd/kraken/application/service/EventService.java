@@ -2,7 +2,6 @@ package lambethd.kraken.application.service;
 
 import lambethd.kraken.application.interfaces.IEventService;
 import lambethd.kraken.application.interfaces.IRangeService;
-import lambethd.kraken.data.mongo.repository.IEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.RangeType;

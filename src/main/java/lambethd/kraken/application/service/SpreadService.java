@@ -2,7 +2,6 @@ package lambethd.kraken.application.service;
 
 import lambethd.kraken.application.interfaces.ISpreadService;
 import lambethd.kraken.application.strategies.spread.CreateSpreadStrategy;
-import lambethd.kraken.data.mongo.repository.ISpreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
