@@ -5,6 +5,8 @@ import lambethd.kraken.application.WebSecurityConfig;
 import lambethd.kraken.application.exception.EntityNotFoundException;
 import lambethd.kraken.application.exception.ForbiddenException;
 import lambethd.kraken.application.interfaces.ITradeService;
+import lambethd.kraken.data.mongo.repository.IItemRepository;
+import lambethd.kraken.data.mongo.repository.ITradeRepository;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

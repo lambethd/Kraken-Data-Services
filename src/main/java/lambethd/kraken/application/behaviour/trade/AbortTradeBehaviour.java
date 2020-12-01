@@ -2,6 +2,8 @@ package lambethd.kraken.application.behaviour.trade;
 
 import lambethd.kraken.application.interfaces.IBehaviour;
 import lambethd.kraken.application.interfaces.ITradeToHistoricalTradeMapper;
+import lambethd.kraken.data.mongo.repository.ICurrentTradeRepository;
+import lambethd.kraken.data.mongo.repository.ITradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.Trade;

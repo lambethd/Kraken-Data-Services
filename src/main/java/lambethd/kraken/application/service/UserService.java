@@ -5,6 +5,7 @@ import domain.User;
 import lambethd.kraken.application.exception.UserRegistrationException;
 import lambethd.kraken.application.interfaces.IUserService;
 import lambethd.kraken.application.interfaces.IUserValidationService;
+import lambethd.kraken.data.mongo.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

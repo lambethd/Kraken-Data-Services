@@ -2,6 +2,7 @@ package lambethd.kraken.application.service;
 
 import lambethd.kraken.application.interfaces.IGraphService;
 import lambethd.kraken.application.interfaces.IRangeService;
+import lambethd.kraken.data.mongo.repository.IGraphRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.RangeType;

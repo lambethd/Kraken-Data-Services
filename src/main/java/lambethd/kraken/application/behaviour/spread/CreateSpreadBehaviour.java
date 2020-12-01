@@ -2,6 +2,7 @@ package lambethd.kraken.application.behaviour.spread;
 
 import lambethd.kraken.application.interfaces.IAuthService;
 import lambethd.kraken.application.interfaces.IBehaviour;
+import lambethd.kraken.data.mongo.repository.ISpreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.Spread;

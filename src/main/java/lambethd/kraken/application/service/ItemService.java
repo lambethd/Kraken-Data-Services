@@ -1,6 +1,7 @@
 package lambethd.kraken.application.service;
 
 import lambethd.kraken.application.interfaces.IItemService;
+import lambethd.kraken.data.mongo.repository.IItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
