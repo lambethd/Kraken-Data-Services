@@ -1,14 +1,18 @@
 package lambethd.kraken.application;
 
-import com.mongodb.MongoClient;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.convert.DbRefResolver;
 import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
@@ -25,7 +29,9 @@ import java.util.List;
 
 @Configuration
 @EnableMongoRepositories(basePackages = "lambethd.kraken.data.mongo.repository")
-public class MongoConfiguration extends AbstractMongoConfiguration {
+public class MongoConfiguration extends AbstractMongoClientConfiguration {
+    @Value("${spring.data.mongodb.uri}")
+    public String uri;
 
     @Override
     protected String getDatabaseName() {
@@ -34,7 +40,11 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     public MongoClient mongoClient() {
-        return new MongoClient("127.0.0.1", 27017);
+        ConnectionString conn = new ConnectionString(uri);
+        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+                .applyConnectionString(conn)
+                .build();
+        return MongoClients.create(mongoClientSettings);
     }
 
     @Override
