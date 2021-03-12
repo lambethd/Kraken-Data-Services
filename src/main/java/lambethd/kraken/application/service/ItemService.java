@@ -9,6 +9,7 @@ import runescape.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService implements IItemService {
@@ -27,7 +28,8 @@ public class ItemService implements IItemService {
 
     @Override
     public Item getItemByName(String name) {
-        return itemRepository.getItemByName(name, new Sort(Sort.Direction.ASC, "name"));
+        Optional<Item> item = itemRepository.getItemsByName(name, new Sort(Sort.Direction.ASC, "name")).stream().findFirst();
+        return item.orElse(null);
     }
 
     @Override

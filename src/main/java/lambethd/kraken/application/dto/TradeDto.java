@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class TradeDto {
     private String id;
     private Integer itemId;
+    private Integer location;
     private Integer requestQuantity;
     private Float requestPrice;
     private String username;
@@ -32,6 +33,14 @@ public class TradeDto {
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    public Integer getLocation() {
+        return location;
+    }
+
+    public void setLocation(Integer location) {
+        this.location = location;
     }
 
     public Integer getRequestQuantity() {

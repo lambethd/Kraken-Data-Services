@@ -70,7 +70,7 @@ public class AuthService implements IAuthService {
     public RSAPublicKey getPublicKey() throws InvalidKeySpecException, NoSuchAlgorithmException, IOException {
         String publicKeyContent = new String(Files.readAllBytes(Paths.get(publicKeyFile)));
 
-        publicKeyContent = publicKeyContent.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");
+        publicKeyContent = publicKeyContent.replaceAll("\\r", "").replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");
         ;
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -83,7 +83,7 @@ public class AuthService implements IAuthService {
     public PrivateKey getPrivateKey() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
         String privateKeyContent = new String(Files.readAllBytes(Paths.get(privateKeyFile)));
 
-        privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
+        privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("\r","").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
 

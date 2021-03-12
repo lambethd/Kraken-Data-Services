@@ -1,5 +1,7 @@
 package lambethd.kraken.application.service;
 
+import lambethd.kraken.application.exception.EntityNotFoundException;
+import lambethd.kraken.application.exception.UnauthorizedException;
 import lambethd.kraken.application.interfaces.IPositionService;
 import lambethd.kraken.data.mongo.repository.IPositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class PositionService implements IPositionService {
         position.addToQuantity(quantityChange);
         position.addToTotalValue(valueChange);
 
-        if (position.getQuantity() == 0 && position.getId() != null) {
+        if (position.getQuantity() <= 0 && position.getId() != null) {
             positionRepository.delete(position);
         } else {
             positionRepository.save(position);
@@ -50,6 +52,27 @@ public class PositionService implements IPositionService {
 
     @Override
     public List<Position> getAllPositions(String username) {
-        return positionRepository.findAll();
+        return positionRepository.getPositionsByUsername(username);
+    }
+
+    @Override
+    public Position updatePosition(Position position, String username) throws EntityNotFoundException, UnauthorizedException {
+        Position repoPosition = positionRepository.findById(position.getId()).orElseThrow(() -> new EntityNotFoundException("Position with that ID was not found"));
+        if (!repoPosition.getUsername().equalsIgnoreCase(username)) {
+            throw new UnauthorizedException("Username of position did not match current user");
+        }
+        if (!position.getUsername().equalsIgnoreCase(username)) {
+            throw new UnauthorizedException("Changing username of position is not allowed.");
+        }
+        return positionRepository.save(position);
+    }
+
+    @Override
+    public void deletePosition(String positionId, String username) throws EntityNotFoundException, UnauthorizedException {
+        Position repoPosition = positionRepository.findById(positionId).orElseThrow(() -> new EntityNotFoundException("Position with that ID was not found"));
+        if (!repoPosition.getUsername().equalsIgnoreCase(username)) {
+            throw new UnauthorizedException("Username of position did not match current user");
+        }
+        positionRepository.deleteById(positionId);
     }
 }
