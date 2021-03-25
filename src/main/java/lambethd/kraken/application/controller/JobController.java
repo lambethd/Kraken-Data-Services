@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -29,7 +30,7 @@ public class JobController extends BaseController {
     @RequestMapping("/{runeDay}")
     public ResponseEntity<List<IJob>> getJobs(@PathVariable int runeDay) {
         try {
-            LocalDateTime date = LocalDateTime.parse("" + runeDay, DateTimeFormatter.ofPattern("yyyyMMdd"));
+            LocalDateTime date = LocalDate.parse("" + runeDay, DateTimeFormatter.ofPattern("yyyyMMdd")).atStartOfDay();
             return buildResponseEntity(jobService.getJobs(runeDayService.transform(date), authService.getCurrentUser()));
         } catch (Exception e) {
             return buildResponseEntity(jobService.getJobs(runeDay, authService.getCurrentUser()));
