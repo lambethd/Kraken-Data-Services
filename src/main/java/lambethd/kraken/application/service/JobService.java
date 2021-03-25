@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class JobService implements IJobService {
@@ -19,7 +21,9 @@ public class JobService implements IJobService {
 
     @Override
     public List<IJob> getJobs(int runeDay, String username) {
-        return jobRepository.findByUsernameAndRuneDay(username, runeDay);
+        List<IJob> systemJobs = jobRepository.findByUsernameAndRuneDay("System", runeDay);
+        List<IJob> userJobs = jobRepository.findByUsernameAndRuneDay(username, runeDay);
+        return Stream.concat(systemJobs.stream(), userJobs.stream()).collect(Collectors.toList());
     }
 
     @Override
